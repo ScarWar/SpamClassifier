@@ -73,12 +73,12 @@ def avg_sentence_len_per_word(email):
 
 
 def word_len_freq(word_list, M):
-    len_counter = dict([(i, 0) for i in range(1,16)])
+    len_counter = dict([(i, 0) for i in range(1, 16)])
     for w in word_list:
         if len(w) in len_counter:
             len_counter[len(w)] += 1
 
-    return [len_counter[v] / M for v in range(1,16)]
+    return [len_counter[v] / M for v in range(1, 16)]
 
 
 def uniqe_words_freq(email, word_list, M):
@@ -88,14 +88,14 @@ def uniqe_words_freq(email, word_list, M):
 # Hapax Legomena Freq. of once-occurring words
 def hapax_legomena_freq(word_list, M):
     token_counter = coll.Counter(w.upper() for w in word_list)
-    return len(w for token_counter.keys() \
+    return len(w for token_counter.keys()
                if token_counter[w] == 1) / M
 
 
 # Hapax Dislegomena Freq. of twice-occurring words
 def hapax_dislegonema_freq(email, word_list, M):
     token_counter = coll.Counter(w.upper() for w in word_list)
-    return len(w for token_counter.keys() \
+    return len(w for token_counter.keys()
                if token_counter[w] == 2) / M
 
 
@@ -118,7 +118,7 @@ def simpson_d_measure(word_list, M):
 def sichel_measure_s(word_list):
     token_counter = coll.Counter(w.upper() for w in word_list)
     v = len(set(w.upper() for w in word_list))
-    v2 = len(set(w for w in token_counter.keys() \
+    v2 = len(set(w for w in token_counter.keys()
                  if token_counter[w] == 2))
     return v2 / v
 
@@ -133,19 +133,17 @@ def honore_r_measure(word_list):
     token_counter = coll.Counter(w.upper() for w in word_list)
     v = len(set(w.upper() for w in word_list))
     n = len(word_list)
-    v1 =len(set(w for w in token_counter.keys() \
-                if token_counter[w] == 1))
-    return 100 * math.log(n)/ (1 - (v1/v))
+    v1 = len(set(w for w in token_counter.keys()
+                 if token_counter[w] == 1))
+    return 100 * math.log(n) / (1 - (v1/v))
 
 
 def punctuation_freq(email):
     punc = '.،;?!:()–"«»<>[]{}'
     token_counter = coll.Counter(c for c in email if c in punc)
-    return [token_counter[c]/sum(token_counter.values()) for c in punc]
+    s = sum(token_counter.values())
+    return [token_counter[c]/s for c in punc]
 
 
 def vectorize(email):
     pass
-
-
-
